@@ -29,6 +29,8 @@ public class Calculator {
 		selectedOp = o;
 	}
 	
+	//End the current chain of calculations, meaning what's in the results
+	//becomes input again...
 	public void reInitResults(){
 		inputBuffer = resultsBuffer;	
 		resultsBuffer = 0.0d;
