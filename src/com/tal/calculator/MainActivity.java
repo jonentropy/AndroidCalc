@@ -222,13 +222,17 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	private void backSpace(){
 		String displayed = (String)resultText.getText();
-		displayed = (displayed.substring(0, displayed.length() - 1));
 		
-		if(displayed.length() <= 0)
-			displayed = "0";
-		
-		resultText.setText(displayed);
-		calc.setInputBuffer(Double.parseDouble(displayed));
+		if(displayed.matches("[0-9.]*")){
+			//Only allow backspace if the field contains only numbers
+			displayed = (displayed.substring(0, displayed.length() - 1));
+			
+			if(displayed.length() <= 0)
+				displayed = "0";
+			
+			resultText.setText(displayed);
+			calc.setInputBuffer(Double.parseDouble(displayed));
+		}
 	}
 	
 	//'Equals' - do the calculation and update result display
@@ -248,4 +252,6 @@ public class MainActivity extends Activity implements OnClickListener {
 			b.animate().rotationBy(0.5f);
 		}
 	}
+	
+	
 }
