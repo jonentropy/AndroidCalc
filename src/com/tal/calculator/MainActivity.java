@@ -214,6 +214,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			displayed = "0";
 		
 		resultText.setText(displayed);
+		calc.setInputBuffer(Double.parseDouble(displayed));
 	}
 	
 	//'Equals' - do the calculation and update result display
