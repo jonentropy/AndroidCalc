@@ -5,6 +5,10 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -153,6 +157,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.buttonEquals:
 			doCalc();
 			calc.reInitResults();
+			runKeyAnim();
 			break;
 		case R.id.buttonBackspace:
 			backSpace();
@@ -216,5 +221,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		resultText.setText("" + calc.getResult());
 		inputtingNew = true;
 	}
-    
+	
+	//Animation stuff
+	private void runKeyAnim(){		
+		final Animation keyAnim = AnimationUtils.loadAnimation(this, R.anim.key_anim);
+		
+		for(int i=0; i<=9; i++){
+			int resID = getResources().getIdentifier("button" + i, "id", getPackageName());
+			Button b = (Button) this.findViewById(resID);
+			b.startAnimation(keyAnim);
+		}
+	}
 }
