@@ -2,6 +2,7 @@ package com.tal.calculator;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,9 +13,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
+	private static final String TAG = "Calculator Main";
+	
 	private Calculator calc;
 	private TextView resultText;
 	private boolean inputtingNew = false;
+	
+	@Override
+    protected void onResume() {
+        super.onResume();
+       
+	}
+        
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +107,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		if(v instanceof Button){
+			Button b = (Button)v;
+			Log.v(TAG, "Click " + b.getText().toString());
+		}
 		
 		//Use this one onClick for all buttons to save resources
 		switch(v.getId()) {
@@ -230,7 +244,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		for(int i=0; i<=9; i++){
 			int resID = getResources().getIdentifier("button" + i, "id", getPackageName());
 			Button b = (Button) this.findViewById(resID);
-			b.startAnimation(keyAnim);
+			//b.startAnimation(keyAnim);
+			b.animate().rotationBy(0.5f);
 		}
 	}
 }
