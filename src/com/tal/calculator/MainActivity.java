@@ -9,112 +9,115 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import  android.animation.ObjectAnimator;
 
 public class MainActivity extends Activity implements OnClickListener {
 	private static final String TAG = "Calculator Main";
-	
+
 	private Calculator calc;
 	private TextView resultText;
 	private boolean inputtingNew = false;
-	
+
 	@Override
-    protected void onResume() {
-        super.onResume();
-       
+	protected void onResume() {
+		super.onResume();      
 	}
-        
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        
-        resultText = (TextView)this.findViewById(R.id.resultText);
-        
-        calc = new Calculator();
-        
-        //Set all button's event handlers to the Activity itself
-        
-        //Numbers...
-        View zeroButton = this.findViewById(R.id.button0);
-        zeroButton.setOnClickListener(this);
-        
-        View oneButton = this.findViewById(R.id.button1);
-        oneButton.setOnClickListener(this);
-        
-        View twoButton = this.findViewById(R.id.button2);
-        twoButton.setOnClickListener(this);
-        
-        View threeButton = this.findViewById(R.id.button3);
-        threeButton.setOnClickListener(this);
-        
-        View fourButton = this.findViewById(R.id.button4);
-        fourButton.setOnClickListener(this);
-        
-        View fiveButton = this.findViewById(R.id.button5);
-        fiveButton.setOnClickListener(this);
-        
-        View sixButton = this.findViewById(R.id.button6);
-        sixButton.setOnClickListener(this);
-        
-        View sevenButton = this.findViewById(R.id.button7);
-        sevenButton.setOnClickListener(this);
-        
-        View eightButton = this.findViewById(R.id.button8);
-        eightButton.setOnClickListener(this);
-        
-        View nineButton = this.findViewById(R.id.button9);
-        nineButton.setOnClickListener(this);  
-        
-        //Operations
-        View addButton = this.findViewById(R.id.buttonAdd);
-        addButton.setOnClickListener(this); 
-        
-        View subButton = this.findViewById(R.id.buttonSubtract);
-        subButton.setOnClickListener(this); 
-        
-        View multButton = this.findViewById(R.id.buttonMultiply);
-        multButton.setOnClickListener(this); 
-        
-        View divButton = this.findViewById(R.id.buttonDivide);
-        divButton.setOnClickListener(this); 
-        
-        //Point
-        View pointButton = this.findViewById(R.id.buttonPoint);
-        pointButton.setOnClickListener(this); 
-        
-        //Equals
-        View eqButton = this.findViewById(R.id.buttonEquals);
-        eqButton.setOnClickListener(this); 
-        
-        //Clear
-        View clButton = this.findViewById(R.id.buttonClear);
-        clButton.setOnClickListener(this); 
-        
-        //Backspace
-        View bkspButton = this.findViewById(R.id.buttonBackspace);
-        bkspButton.setOnClickListener(this); 
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }
+		resultText = (TextView)this.findViewById(R.id.resultText);
+
+		calc = new Calculator();
+
+		//Set all button's event handlers to the Activity itself
+
+		//Numbers...
+		View zeroButton = this.findViewById(R.id.button0);
+		zeroButton.setOnClickListener(this);
+
+		View oneButton = this.findViewById(R.id.button1);
+		oneButton.setOnClickListener(this);
+
+		View twoButton = this.findViewById(R.id.button2);
+		twoButton.setOnClickListener(this);
+
+		View threeButton = this.findViewById(R.id.button3);
+		threeButton.setOnClickListener(this);
+
+		View fourButton = this.findViewById(R.id.button4);
+		fourButton.setOnClickListener(this);
+
+		View fiveButton = this.findViewById(R.id.button5);
+		fiveButton.setOnClickListener(this);
+
+		View sixButton = this.findViewById(R.id.button6);
+		sixButton.setOnClickListener(this);
+
+		View sevenButton = this.findViewById(R.id.button7);
+		sevenButton.setOnClickListener(this);
+
+		View eightButton = this.findViewById(R.id.button8);
+		eightButton.setOnClickListener(this);
+
+		View nineButton = this.findViewById(R.id.button9);
+		nineButton.setOnClickListener(this);  
+
+		//Operations
+		View addButton = this.findViewById(R.id.buttonAdd);
+		addButton.setOnClickListener(this); 
+
+		View subButton = this.findViewById(R.id.buttonSubtract);
+		subButton.setOnClickListener(this); 
+
+		View multButton = this.findViewById(R.id.buttonMultiply);
+		multButton.setOnClickListener(this); 
+
+		View divButton = this.findViewById(R.id.buttonDivide);
+		divButton.setOnClickListener(this); 
+
+		//Point
+		View pointButton = this.findViewById(R.id.buttonPoint);
+		pointButton.setOnClickListener(this); 
+
+		//Equals
+		View eqButton = this.findViewById(R.id.buttonEquals);
+		eqButton.setOnClickListener(this); 
+
+		//Clear
+		View clButton = this.findViewById(R.id.buttonClear);
+		clButton.setOnClickListener(this); 
+
+		//Backspace
+		View bkspButton = this.findViewById(R.id.buttonBackspace);
+		bkspButton.setOnClickListener(this); 
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.activity_main, menu);
+		return true;
+	}
 
 	@Override
 	public void onClick(View v) {
 		if(v instanceof Button){
 			Button b = (Button)v;
 			Log.v(TAG, "Click " + b.getText().toString());
+
+			//Animation type (3) -Property animations with ObjectAnimator...
+			ObjectAnimator animator = ObjectAnimator.ofFloat(v, "rotationY", 0f, 360f);
+			animator.setDuration(500);
+			animator.start();		
 		}
-		
+
 		//Use this one onClick for all buttons to save resources
 		switch(v.getId()) {
-		
+
 		//Number buttons enter into input field
 		case R.id.button0:
 			processNumber(0);
@@ -179,11 +182,11 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		}	
 	}
-	
+
 	//Clear function. First call clears input field, second press clears all...
 	private void clear(){
 		String displayed = (String)resultText.getText();
-		
+
 		if(displayed == "0"){
 			calc.clearAllBuffers();
 		}
@@ -192,11 +195,11 @@ public class MainActivity extends Activity implements OnClickListener {
 			resultText.setText("0");
 		}		
 	}
-	
+
 	//Visualisation of inputting numbers...
 	private void processNumber(int num){
 		String displayed = (String)resultText.getText();
-		
+
 		if(inputtingNew){
 			displayed = "";
 			inputtingNew = false;
@@ -206,52 +209,54 @@ public class MainActivity extends Activity implements OnClickListener {
 				displayed = "";
 			}	
 		}
-		
+
 		displayed += num;
 		resultText.setText(displayed);
 		calc.setInputBuffer(Double.parseDouble(displayed));
 	}
-	
+
 	private void addDecimalPoint(){
 		String displayed = (String)resultText.getText();
-		
+
 		if(!displayed.contains(".")){
 			resultText.setText(displayed + ".");
 		}	
 	}
-	
+
 	private void backSpace(){
 		String displayed = (String)resultText.getText();
-		
+
 		if(displayed.matches("[0-9.]*")){
 			//Only allow backspace if the field contains only numbers
 			displayed = (displayed.substring(0, displayed.length() - 1));
-			
+
 			if(displayed.length() <= 0)
 				displayed = "0";
-			
+
 			resultText.setText(displayed);
 			calc.setInputBuffer(Double.parseDouble(displayed));
 		}
 	}
-	
+
 	//'Equals' - do the calculation and update result display
 	private void doCalc(){
 		resultText.setText("" + calc.getResult());
 		inputtingNew = true;
 	}
-	
+
 	//Animation stuff
 	private void runKeyAnim(){		
 		final Animation keyAnim = AnimationUtils.loadAnimation(this, R.anim.key_anim);
-		
+
 		for(int i=0; i<=9; i++){
+
+			//Animation type (1) - Use the XML animation to pulse the buttons outward
 			int resID = getResources().getIdentifier("button" + i, "id", getPackageName());
 			Button b = (Button) this.findViewById(resID);
-			//b.startAnimation(keyAnim);
-			b.animate().rotationBy(0.5f);
+			b.startAnimation(keyAnim);
+
+			//Animation type (2) -ViewPropertyAnimator animate(). Use to rotate the buttons
+			b.animate().rotationBy(2.0f);
 		}
 	}
-	
-	
 }
